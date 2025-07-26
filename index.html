@@ -11,33 +11,25 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Google reCAPTCHA Script -->
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
     <style>
         :root {
             --bg-color-light: #f4f7ff;
             --bg-color-dark: #12121c;
-            
             --card-bg-light: rgba(255, 255, 255, 0.4);
             --card-bg-dark: rgba(30, 30, 45, 0.3);
-
             --border-color-light: rgba(255, 255, 255, 0.6);
             --border-color-dark: rgba(255, 255, 255, 0.1);
-
             --text-primary-light: #2c3e50;
             --text-primary-dark: #e0e0e0;
-
             --text-secondary-light: #5a6a7a;
             --text-secondary-dark: #a0a0b0;
-
             --accent-color-1: #8e2de2;
             --accent-color-2: #4a00e0;
             --accent-color-3: #00c6ff;
-
             --shadow-light: rgba(0, 0, 0, 0.05);
             --shadow-dark: rgba(0, 0, 0, 0.2);
-            
             --scrollbar-thumb-light: rgba(0, 0, 0, 0.3);
             --scrollbar-thumb-dark: rgba(255, 255, 255, 0.2);
         }
@@ -64,7 +56,6 @@
         ::-webkit-scrollbar-thumb:hover {
              background-color: rgba(255, 255, 255, 0.4);
         }
-
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -97,11 +88,8 @@
                 border: 1px solid var(--border-color-light);
                 box-shadow: 0 8px 32px 0 var(--shadow-light);
             }
-            .card-description, .modal-content p, .staff-members {
+            .card-description, .modal-content p {
                 color: var(--text-secondary-light);
-            }
-            .staff-role {
-                color: var(--text-primary-light);
             }
             ::-webkit-scrollbar-thumb {
                 background-color: var(--scrollbar-thumb-light);
@@ -112,24 +100,13 @@
         }
 
         @keyframes moveBlob {
-            0% {
-                transform: scale(1) translate(0, 0);
-            }
-            25% {
-                transform: scale(1.1) translate(20px, -30px);
-            }
-            50% {
-                transform: scale(0.9) translate(-10px, 20px);
-            }
-            75% {
-                transform: scale(1.2) translate(-30px, 10px);
-            }
-            100% {
-                transform: scale(1) translate(0, 0);
-            }
+            0% { transform: scale(1) translate(0, 0); }
+            25% { transform: scale(1.1) translate(20px, -30px); }
+            50% { transform: scale(0.9) translate(-10px, 20px); }
+            75% { transform: scale(1.2) translate(-30px, 10px); }
+            100% { transform: scale(1) translate(0, 0); }
         }
 
-     
         .background-container {
             width: 100vw;
             height: 100vh;
@@ -146,7 +123,7 @@
             opacity: 0.5;
             mix-blend-mode: multiply;
             filter: blur(80px);
-            animation: moveBlob 40s infinite alternate; 
+            animation: moveBlob 40s infinite alternate;
         }
 
         .blob1 {
@@ -155,7 +132,7 @@
             top: -150px;
             left: -150px;
             background: radial-gradient(circle, var(--accent-color-1), transparent 60%);
-            animation-duration: 50s; 
+            animation-duration: 50s;
         }
 
         .blob2 {
@@ -164,11 +141,10 @@
             bottom: -100px;
             right: -100px;
             background: radial-gradient(circle, var(--accent-color-3), transparent 60%);
-            animation-duration: 40s; 
+            animation-duration: 40s;
             animation-delay: -20s;
         }
         
-        /* Main container for cards */
         .main-container {
             display: flex;
             flex-direction: column;
@@ -179,7 +155,6 @@
             margin: 0 auto;
         }
 
-        
         .card {
             border-radius: 24px;
             padding: 2.5rem;
@@ -205,7 +180,6 @@
             margin-bottom: 2rem;
         }
 
-       
         .donation-buttons {
             display: flex;
             flex-direction: column;
@@ -240,9 +214,9 @@
         .btn-apple-pay { background-color: #000000; color: white; }
         .btn-google-pay { background-color: #5f6368; color: white; }
         .btn-cash-app { background-color: #00d632; color: white; }
+        .btn-crypto { background-color: #f7931a; color: white; }
         .btn i { font-size: 1.2rem; }
 
-    
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -275,7 +249,7 @@
             -webkit-backdrop-filter: blur(18px);
             position: relative;
             max-width: 90%;
-            width: auto; 
+            width: auto;
             font-size: 1.1rem;
             transform: scale(0.95);
             transition: transform 0.3s ease;
@@ -303,29 +277,6 @@
             transform: scale(1.2);
         }
         
-        /* Staff List Styles */
-        .staff-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            text-align: center; 
-            margin-top: 2rem;
-        }
-
-        .staff-role {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary-dark);
-            margin-bottom: 0.25rem;
-        }
-
-        .staff-members {
-            font-size: 1rem;
-            color: var(--text-secondary-dark);
-            word-break: break-all;
-        }
-
-        /* reCAPTCHA container */
         #recaptcha-container {
             display: inline-block;
         }
@@ -334,14 +285,12 @@
 </head>
 <body>
 
-
     <div id="unsupported-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <p>This payment method is not yet supported. 😔</p>
         </div>
     </div>
-
 
     <div id="captcha-modal" class="modal-overlay">
         <div class="modal-content">
@@ -351,28 +300,24 @@
         </div>
     </div>
 
-
     <div class="background-container">
         <div class="blob blob1"></div>
         <div class="blob blob2"></div>
     </div>
 
-
     <main class="main-container">
 
-        <
         <section class="card">
             <h1 class="card-title">Guitar Hangout</h1>
             <p class="card-description">
                 A discord server with a beautiful community and staff, we host roblox and other games events, movie nights and more!
             </p>
-            <a href="https://discord.gg/TkjgfsWqfG" id="join-server-btn" class="btn btn-discord" target="_blank" rel="noopener noreferrer">
+            <a href="#" id="join-server-btn" class="btn btn-discord">
                 <i class="fab fa-discord"></i>
                 Join Server
             </a>
         </section>
 
-    
         <section class="card">
             <h2 class="card-title">Support Us</h2>
             <p class="card-description">
@@ -395,44 +340,18 @@
                     <i class="fas fa-dollar-sign"></i>
                     Donate with Cash App
                 </a>
-            </div>
-        </section>
-
-  
-        <section class="card">
-            <h2 class="card-title">Staff</h2>
-            <div class="staff-list">
-                <div>
-                    <h3 class="staff-role">Owner</h3>
-                    <p class="staff-members">that_one_song</p>
-                </div>
-                <div>
-                    <h3 class="staff-role">Co-Owner</h3>
-                    <p class="staff-members">stxrdavi</p>
-                </div>
-                <div>
-                    <h3 class="staff-role">Head Mods</h3>
-                    <p class="staff-members">star_matti</p>
-                </div>
-                <div>
-                    <h3 class="staff-role">Mods</h3>
-                    <p class="staff-members">nutslug</p>
-                </div>
-                <div>
-                    <h3 class="staff-role">Junior Mods</h3>
-                    <p class="staff-members">somealtaccount1, aominechi0771</p>
-                </div>
+                <a href="#" id="crypto-btn" class="btn btn-crypto">
+                    <i class="fab fa-bitcoin"></i>
+                    Donate with Cryptocurrency
+                </a>
             </div>
         </section>
 
     </main>
 
     <script>
-    
         let nextAction = null;
-        let devBypassEnabled = false;
 
-    
         const unsupportedModal = document.getElementById('unsupported-modal');
         const unsupportedCloseBtn = unsupportedModal.querySelector('.close-btn');
 
@@ -454,38 +373,25 @@
             });
         }
 
-    
         var recaptchaWidgetId;
         const captchaModal = document.getElementById('captcha-modal');
         const captchaCloseBtn = captchaModal.querySelector('.close-btn');
 
-    
         function onRecaptchaSuccess(token) {
-            console.log('reCAPTCHA verified, token:', token);
             if (typeof nextAction === 'function') {
                 nextAction();
             }
             closeCaptchaModal();
         }
 
-      
         var onloadCallback = function() {
-            console.log("reCAPTCHA script loaded.");
+            // Script loaded
         };
         
         const openCaptchaModal = (e, action) => {
             e.preventDefault();
-
-          
-            if (devBypassEnabled) {
-                console.log('Captcha bypassed by developer code.');
-                action(); 
-                return;
-            }
-
-            nextAction = action; 
+            nextAction = action;
             captchaModal.classList.add('visible');
-            
             
             if (typeof grecaptcha !== 'undefined' && typeof recaptchaWidgetId === 'undefined') {
                 recaptchaWidgetId = grecaptcha.render('recaptcha-container', {
@@ -494,7 +400,6 @@
                     'theme': window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
                 });
             } else if (typeof grecaptcha !== 'undefined') {
-                
                 grecaptcha.reset(recaptchaWidgetId);
             }
         };
@@ -512,43 +417,25 @@
             });
         }
 
-    
+        const joinServerBtn = document.getElementById('join-server-btn');
         const paypalBtn = document.getElementById('paypal-btn');
         const applePayBtn = document.getElementById('apple-pay-btn');
         const googlePayBtn = document.getElementById('google-pay-btn');
         const cashAppBtn = document.getElementById('cash-app-btn');
+        const cryptoBtn = document.getElementById('crypto-btn');
         
-       
+        if (joinServerBtn) joinServerBtn.addEventListener('click', (e) => openCaptchaModal(e, () => {
+            window.open('https://discord.gg/TkjgfsWqfG', '_blank');
+        }));
+
         if (paypalBtn) paypalBtn.addEventListener('click', (e) => openCaptchaModal(e, () => {
             window.open('https://www.paypal.com/paypalme/stxrdavi', '_blank');
         }));
 
-        
         if (applePayBtn) applePayBtn.addEventListener('click', openUnsupportedModal);
         if (googlePayBtn) googlePayBtn.addEventListener('click', openUnsupportedModal);
         if (cashAppBtn) cashAppBtn.addEventListener('click', openUnsupportedModal);
-
-
-        
-        let keySequence = '';
-        const bypassCode = 'DEVBYPASS';
-
-        document.addEventListener('keydown', (e) => {
-            
-            keySequence += e.key.toUpperCase();
-
-            
-            if (keySequence.length > bypassCode.length) {
-                keySequence = keySequence.slice(-bypassCode.length);
-            }
-
-            
-            if (keySequence === bypassCode) {
-                devBypassEnabled = true;
-                console.log('Developer bypass enabled for this session.');
-                keySequence = ''; // Reset the sequence
-            }
-        });
+        if (cryptoBtn) cryptoBtn.addEventListener('click', openUnsupportedModal);
 
     </script>
 
