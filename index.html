@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guitar Hangout</title>
     
-    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- ALTCHA Captcha Script -->
-    <script async defer src="https://cdn.jsdelivr.net/gh/altcha-org/altcha/dist/altcha.min.js" type="module"></script>
+    <!-- Google reCAPTCHA Script -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
     <style>
-        /* CSS Variables for Theming (Light & Dark Mode) */
         :root {
             --bg-color-light: #f4f7ff;
             --bg-color-dark: #12121c;
@@ -45,20 +42,18 @@
             --scrollbar-thumb-dark: rgba(255, 255, 255, 0.2);
         }
 
-        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Custom Scrollbar Styles */
         ::-webkit-scrollbar {
-            width: 8px; /* Thinner scrollbar */
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: transparent; /* Invisible track */
+            background: transparent;
         }
 
         ::-webkit-scrollbar-thumb {
@@ -70,7 +65,7 @@
              background-color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Default is now DARK THEME */
+
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
@@ -78,7 +73,7 @@
             background-color: var(--bg-color-dark);
             color: var(--text-primary-dark);
             transition: background-color 0.4s ease, color 0.4s ease;
-            overflow-x: hidden; /* Allow vertical scroll, prevent horizontal */
+            overflow-x: hidden;
             position: relative;
         }
 
@@ -92,7 +87,6 @@
             color: var(--text-secondary-dark);
         }
 
-        /* Inverted Theme: Apply LIGHT THEME if user prefers light mode */
         @media (prefers-color-scheme: light) {
             body {
                 background-color: var(--bg-color-light);
@@ -117,7 +111,6 @@
             }
         }
 
-        /* Keyframes for blob animation */
         @keyframes moveBlob {
             0% {
                 transform: scale(1) translate(0, 0);
@@ -136,7 +129,7 @@
             }
         }
 
-        /* Animated Background Blobs */
+     
         .background-container {
             width: 100vw;
             height: 100vh;
@@ -153,7 +146,7 @@
             opacity: 0.5;
             mix-blend-mode: multiply;
             filter: blur(80px);
-            animation: moveBlob 40s infinite alternate; /* Increased base duration */
+            animation: moveBlob 40s infinite alternate; 
         }
 
         .blob1 {
@@ -162,7 +155,7 @@
             top: -150px;
             left: -150px;
             background: radial-gradient(circle, var(--accent-color-1), transparent 60%);
-            animation-duration: 50s; /* Slower animation */
+            animation-duration: 50s; 
         }
 
         .blob2 {
@@ -171,7 +164,7 @@
             bottom: -100px;
             right: -100px;
             background: radial-gradient(circle, var(--accent-color-3), transparent 60%);
-            animation-duration: 40s; /* Slower animation */
+            animation-duration: 40s; 
             animation-delay: -20s;
         }
         
@@ -186,7 +179,7 @@
             margin: 0 auto;
         }
 
-        /* Glassmorphism Card Style */
+        
         .card {
             border-radius: 24px;
             padding: 2.5rem;
@@ -212,7 +205,7 @@
             margin-bottom: 2rem;
         }
 
-        /* Button Styles */
+       
         .donation-buttons {
             display: flex;
             flex-direction: column;
@@ -249,7 +242,7 @@
         .btn-cash-app { background-color: #00d632; color: white; }
         .btn i { font-size: 1.2rem; }
 
-        /* Modal Styles */
+    
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -282,7 +275,7 @@
             -webkit-backdrop-filter: blur(18px);
             position: relative;
             max-width: 90%;
-            width: 400px;
+            width: auto; 
             font-size: 1.1rem;
             transform: scale(0.95);
             transition: transform 0.3s ease;
@@ -315,7 +308,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
-            text-align: center; /* Changed from left to center */
+            text-align: center; 
             margin-top: 2rem;
         }
 
@@ -332,11 +325,16 @@
             word-break: break-all;
         }
 
+        /* reCAPTCHA container */
+        #recaptcha-container {
+            display: inline-block;
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Modal for unsupported payments -->
+
     <div id="unsupported-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -344,47 +342,44 @@
         </div>
     </div>
 
-    <!-- Modal for Captcha -->
+
     <div id="captcha-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <p>Please verify you are human to continue.</p>
-            <altcha-widget
-                id="altcha-widget"
-                challengeurl="https://corsproxy.io/?https://app.altcha.org/api/v1/challenge">
-            </altcha-widget>
+            <div id="recaptcha-container"></div>
         </div>
     </div>
 
-    <!-- Animated background blobs -->
+
     <div class="background-container">
         <div class="blob blob1"></div>
         <div class="blob blob2"></div>
     </div>
 
-    <!-- Main content container -->
+
     <main class="main-container">
 
-        <!-- Discord Card -->
+        <
         <section class="card">
             <h1 class="card-title">Guitar Hangout</h1>
             <p class="card-description">
                 A discord server with a beautiful community and staff, we host roblox and other games events, movie nights and more!
             </p>
-            <a href="#" id="join-server-btn" class="btn btn-discord">
+            <a href="https://discord.gg/TkjgfsWqfG" id="join-server-btn" class="btn btn-discord" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-discord"></i>
                 Join Server
             </a>
         </section>
 
-        <!-- Donation Card -->
+    
         <section class="card">
             <h2 class="card-title">Support Us</h2>
             <p class="card-description">
                 If you enjoy our community, consider making a donation to help us grow and host more events.
             </p>
             <div class="donation-buttons">
-                <a href="https://www.paypal.com/paypalme/stxrdavi" class="btn btn-paypal" target="_blank" rel="noopener noreferrer">
+                <a href="#" id="paypal-btn" class="btn btn-paypal">
                     <i class="fab fa-paypal"></i>
                     Donate via PayPal
                 </a>
@@ -403,7 +398,7 @@
             </div>
         </section>
 
-        <!-- Staff Card -->
+  
         <section class="card">
             <h2 class="card-title">Staff</h2>
             <div class="staff-list">
@@ -433,11 +428,12 @@
     </main>
 
     <script>
-        // --- Unsupported Payment Modal Logic ---
+    
+        let nextAction = null;
+        let devBypassEnabled = false;
+
+    
         const unsupportedModal = document.getElementById('unsupported-modal');
-        const applePayBtn = document.getElementById('apple-pay-btn');
-        const googlePayBtn = document.getElementById('google-pay-btn');
-        const cashAppBtn = document.getElementById('cash-app-btn');
         const unsupportedCloseBtn = unsupportedModal.querySelector('.close-btn');
 
         const openUnsupportedModal = (e) => {
@@ -448,12 +444,8 @@
         const closeUnsupportedModal = () => {
             unsupportedModal.classList.remove('visible');
         };
-
-        if (applePayBtn) applePayBtn.addEventListener('click', openUnsupportedModal);
-        if (googlePayBtn) googlePayBtn.addEventListener('click', openUnsupportedModal);
-        if (cashAppBtn) cashAppBtn.addEventListener('click', openUnsupportedModal);
-        if (unsupportedCloseBtn) unsupportedCloseBtn.addEventListener('click', closeUnsupportedModal);
         
+        if (unsupportedCloseBtn) unsupportedCloseBtn.addEventListener('click', closeUnsupportedModal);
         if (unsupportedModal) {
             unsupportedModal.addEventListener('click', (e) => {
                 if (e.target === unsupportedModal) {
@@ -462,42 +454,56 @@
             });
         }
 
-        // --- Captcha Modal Logic ---
+    
+        var recaptchaWidgetId;
         const captchaModal = document.getElementById('captcha-modal');
-        const joinServerBtn = document.getElementById('join-server-btn');
         const captchaCloseBtn = captchaModal.querySelector('.close-btn');
-        const altchaWidget = document.getElementById('altcha-widget');
 
-        const openCaptchaModal = (e) => {
-            e.preventDefault();
-            // Set ALTCHA theme based on the website's theme
-            const isLightTheme = window.matchMedia('(prefers-color-scheme: light)').matches;
-            altchaWidget.theme = isLightTheme ? 'light' : 'dark';
-            
-            // Reset the widget if it has been used before
-            if (altchaWidget.reset) {
-                altchaWidget.reset();
+    
+        function onRecaptchaSuccess(token) {
+            console.log('reCAPTCHA verified, token:', token);
+            if (typeof nextAction === 'function') {
+                nextAction();
             }
-            
+            closeCaptchaModal();
+        }
+
+      
+        var onloadCallback = function() {
+            console.log("reCAPTCHA script loaded.");
+        };
+        
+        const openCaptchaModal = (e, action) => {
+            e.preventDefault();
+
+          
+            if (devBypassEnabled) {
+                console.log('Captcha bypassed by developer code.');
+                action(); 
+                return;
+            }
+
+            nextAction = action; 
             captchaModal.classList.add('visible');
+            
+            
+            if (typeof grecaptcha !== 'undefined' && typeof recaptchaWidgetId === 'undefined') {
+                recaptchaWidgetId = grecaptcha.render('recaptcha-container', {
+                    'sitekey' : '6LeOGZArAAAAANhUCzJYi4kkSV_Bn9fr1nsgAbUo',
+                    'callback' : onRecaptchaSuccess,
+                    'theme': window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+                });
+            } else if (typeof grecaptcha !== 'undefined') {
+                
+                grecaptcha.reset(recaptchaWidgetId);
+            }
         };
 
         const closeCaptchaModal = () => {
             captchaModal.classList.remove('visible');
         };
-        
-        const onCaptchaVerified = (e) => {
-            console.log('ALTCHA verified:', e.detail.payload);
-            // Open Discord link in a new tab
-            window.open('https://discord.gg/TkjgfsWqfG', '_blank');
-            // Close the modal after verification
-            closeCaptchaModal();
-        };
 
-        if (joinServerBtn) joinServerBtn.addEventListener('click', openCaptchaModal);
         if (captchaCloseBtn) captchaCloseBtn.addEventListener('click', closeCaptchaModal);
-        if (altchaWidget) altchaWidget.addEventListener('verified', onCaptchaVerified);
-
         if (captchaModal) {
             captchaModal.addEventListener('click', (e) => {
                 if (e.target === captchaModal) {
@@ -505,6 +511,44 @@
                 }
             });
         }
+
+    
+        const paypalBtn = document.getElementById('paypal-btn');
+        const applePayBtn = document.getElementById('apple-pay-btn');
+        const googlePayBtn = document.getElementById('google-pay-btn');
+        const cashAppBtn = document.getElementById('cash-app-btn');
+        
+       
+        if (paypalBtn) paypalBtn.addEventListener('click', (e) => openCaptchaModal(e, () => {
+            window.open('https://www.paypal.com/paypalme/stxrdavi', '_blank');
+        }));
+
+        
+        if (applePayBtn) applePayBtn.addEventListener('click', openUnsupportedModal);
+        if (googlePayBtn) googlePayBtn.addEventListener('click', openUnsupportedModal);
+        if (cashAppBtn) cashAppBtn.addEventListener('click', openUnsupportedModal);
+
+
+        
+        let keySequence = '';
+        const bypassCode = 'DEVBYPASS';
+
+        document.addEventListener('keydown', (e) => {
+            
+            keySequence += e.key.toUpperCase();
+
+            
+            if (keySequence.length > bypassCode.length) {
+                keySequence = keySequence.slice(-bypassCode.length);
+            }
+
+            
+            if (keySequence === bypassCode) {
+                devBypassEnabled = true;
+                console.log('Developer bypass enabled for this session.');
+                keySequence = ''; // Reset the sequence
+            }
+        });
 
     </script>
 
