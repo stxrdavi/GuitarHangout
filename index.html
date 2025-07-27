@@ -88,8 +88,11 @@
                 border: 1px solid var(--border-color-light);
                 box-shadow: 0 8px 32px 0 var(--shadow-light);
             }
-            .card-description, .modal-content p {
+            .card-description, .modal-content p, .staff-members, .payment-option {
                 color: var(--text-secondary-light);
+            }
+             .staff-role, .modal-title {
+                color: var(--text-primary-light);
             }
             ::-webkit-scrollbar-thumb {
                 background-color: var(--scrollbar-thumb-light);
@@ -215,6 +218,7 @@
         .btn-google-pay { background-color: #5f6368; color: white; }
         .btn-cash-app { background-color: #00d632; color: white; }
         .btn-crypto { background-color: #f7931a; color: white; }
+        .btn-more { background-color: #373b41; color: white; }
         .btn i { font-size: 1.2rem; }
 
         .modal-overlay {
@@ -277,8 +281,81 @@
             transform: scale(1.2);
         }
         
+        .staff-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .staff-role {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .staff-members {
+            font-size: 1rem;
+            color: var(--text-secondary-dark);
+            word-break: break-all;
+        }
+
         #recaptcha-container {
             display: inline-block;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary-dark);
+        }
+
+        .warning-text {
+            color: #f7ca18;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .payment-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 280px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            color: var(--text-secondary-dark);
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .payment-option:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-option i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        .payment-option img {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            object-fit: cover;
         }
 
     </style>
@@ -297,6 +374,25 @@
             <span class="close-btn">&times;</span>
             <p>Please verify you are human to continue.</p>
             <div id="recaptcha-container"></div>
+        </div>
+    </div>
+
+    <div id="more-payments-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 class="modal-title">More Payment Options</h3>
+            <p class="warning-text">They are currently not supported!</p>
+            <div class="payment-options-list">
+                <a href="#" class="payment-option unsupported-payment"><i class="fas fa-university"></i><span>Bank transfer</span></a>
+                <a href="#" class="payment-option unsupported-payment"><i class="fab fa-amazon-pay"></i><span>Amazon Pay</span></a>
+                <a href="#" class="payment-option unsupported-payment"><i class="fab fa-stripe"></i><span>Stripe</span></a>
+                <a href="#" class="payment-option unsupported-payment"><i class="fab fa-klarna"></i><span>Klarna</span></a>
+                <a href="#" class="payment-option unsupported-payment"><i class="fas fa-credit-card"></i><span>Credit Card</span></a>
+                <a href="#" id="meme-pay-btn" class="payment-option">
+                    <img src="https://i.kym-cdn.com/entries/icons/medium/000/053/895/67-kid.jpg" alt="6 7 Pay">
+                    <span>6 7 Pay</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -344,6 +440,36 @@
                     <i class="fab fa-bitcoin"></i>
                     Donate with Cryptocurrency
                 </a>
+                <a href="#" id="more-payments-btn" class="btn btn-more">
+                    <i class="fas fa-ellipsis-h"></i>
+                    More payments
+                </a>
+            </div>
+        </section>
+        
+        <section class="card">
+            <h2 class="card-title">Staff</h2>
+            <div class="staff-list">
+                <div>
+                    <h3 class="staff-role">Owner</h3>
+                    <p class="staff-members">that_one_song</p>
+                </div>
+                <div>
+                    <h3 class="staff-role">Co-Owner</h3>
+                    <p class="staff-members">stxrdavi</p>
+                </div>
+                <div>
+                    <h3 class="staff-role">Head Mods</h3>
+                    <p class="staff-members">star_matti</p>
+                </div>
+                <div>
+                    <h3 class="staff-role">Mods</h3>
+                    <p class="staff-members">nutslug</p>
+                </div>
+                <div>
+                    <h3 class="staff-role">Junior Mods</h3>
+                    <p class="staff-members">somealtaccount1, aominechi0771</p>
+                </div>
             </div>
         </section>
 
@@ -356,7 +482,7 @@
         const unsupportedCloseBtn = unsupportedModal.querySelector('.close-btn');
 
         const openUnsupportedModal = (e) => {
-            e.preventDefault();
+            if (e) e.preventDefault();
             unsupportedModal.classList.add('visible');
         };
 
@@ -416,6 +542,46 @@
                 }
             });
         }
+
+        const morePaymentsModal = document.getElementById('more-payments-modal');
+        const morePaymentsBtn = document.getElementById('more-payments-btn');
+        const morePaymentsCloseBtn = morePaymentsModal.querySelector('.close-btn');
+        const unsupportedPaymentLinks = document.querySelectorAll('.unsupported-payment');
+        const memePayBtn = document.getElementById('meme-pay-btn');
+
+        const openMorePaymentsModal = (e) => {
+            e.preventDefault();
+            morePaymentsModal.classList.add('visible');
+        };
+
+        const closeMorePaymentsModal = () => {
+            morePaymentsModal.classList.remove('visible');
+        };
+
+        if (morePaymentsBtn) morePaymentsBtn.addEventListener('click', openMorePaymentsModal);
+        if (morePaymentsCloseBtn) morePaymentsCloseBtn.addEventListener('click', closeMorePaymentsModal);
+        if (morePaymentsModal) {
+            morePaymentsModal.addEventListener('click', (e) => {
+                if (e.target === morePaymentsModal) {
+                    closeMorePaymentsModal();
+                }
+            });
+        }
+
+        unsupportedPaymentLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                closeMorePaymentsModal();
+                setTimeout(() => openUnsupportedModal(e), 300);
+            });
+        });
+
+        if (memePayBtn) memePayBtn.addEventListener('click', (e) => {
+            closeMorePaymentsModal();
+            setTimeout(() => openCaptchaModal(e, () => {
+                 window.open('https://www.youtube.com/watch?v=07xpV4ix2K8&ab_channel=Skrilla', '_blank');
+            }), 300);
+        });
+
 
         const joinServerBtn = document.getElementById('join-server-btn');
         const paypalBtn = document.getElementById('paypal-btn');
